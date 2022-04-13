@@ -46,7 +46,7 @@ subprojects {
         // 自定义配置第三方依赖
         dependencies {
             dependency "mysql:mysql-connector-java:${mysqlVersion}"
-            dependency "lombok:org.projectlombok:${lombokVersion}"
+            dependency "org.projectlombok:lombok:${lombokVersion}"
         }
     }
 }
