@@ -1,4 +1,6 @@
 rootProject.name = 'springcloud-gateway-jwt-demo'
 include 'gateway'
 include 'service1'
+include 'user'
+include 'common'
 
