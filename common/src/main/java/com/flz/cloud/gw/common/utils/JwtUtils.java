@@ -1,5 +1,6 @@
 package com.flz.cloud.gw.common.utils;
 
+import com.flz.cloud.gw.common.constants.Constant;
 import com.flz.cloud.gw.common.dto.JwtUser;
 import io.jsonwebtoken.*;
 
@@ -25,7 +26,7 @@ public class JwtUtils {
         return JwtUser.builder()
                 .id(id)
                 .name(name)
-                .token(token)
+                .token(Constant.TOKEN_PREFIX + token)
                 .build();
     }
 
@@ -35,6 +36,7 @@ public class JwtUtils {
     }
 
     private static Claims getClaims(String token) {
+        token = token.replace(Constant.TOKEN_PREFIX, "");
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
         return claimsJws.getBody();
     }
