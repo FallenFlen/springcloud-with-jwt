@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.3.12.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+ext {
+    set('springCloudVersion', "Hoxton.SR12")
+    set('springCloudAlibabaVersion', "2.2.5.RELEASE")
+    mysqlVersion = '8.0.25'
+    lombokVersion = '1.18.20'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// 子项目的通用配置
+subprojects {
+    // 使用插件
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    // 项目的默认名称和版本
+    group = "com.flz.cloud.gw"
+    version = '0.0.1-SNAPSHOT'
+
+    // 指定JDK版本
+    sourceCompatibility = '11'
+    jar.enabled = true
+
+    // 指定仓库地址
+    repositories {
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        // 导入SpringBoot和SpringCloud依赖Bom
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        }
+
+        // 自定义配置第三方依赖
+        dependencies {
+            dependency "mysql:mysql-connector-java:${mysqlVersion}"
+            dependency "lombok:org.projectlombok:${lombokVersion}"
+        }
+    }
+}

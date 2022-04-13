@@ -1,0 +1,18 @@
+archivesBaseName = 'gateway'
+
+bootJar {
+    enabled = true
+    archiveClassifier = 'boot'
+}
+
+group 'com.flz.cloud.gw'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+}
