@@ -3,4 +3,5 @@ include 'gateway'
 include 'service1'
 include 'user'
 include 'common'
+include 'common-web'
 
