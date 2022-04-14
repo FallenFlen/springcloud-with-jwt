@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+bootJar.enabled = false
+
+group 'com.flz.cloud.gw.web'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
