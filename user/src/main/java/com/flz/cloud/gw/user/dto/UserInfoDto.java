@@ -1,6 +1,5 @@
 package com.flz.cloud.gw.user.dto;
 
-import com.flz.cloud.gw.common.dto.JwtUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
