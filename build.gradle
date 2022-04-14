@@ -7,8 +7,12 @@ plugins {
 ext {
     set('springCloudVersion', "Hoxton.SR12")
     set('springCloudAlibabaVersion', "2.2.5.RELEASE")
-    mysqlVersion = '8.0.25'
-    lombokVersion = '1.18.20'
+    set('lombokVersion', '1.18.20')
+    set('mysqlVersion', '8.0.25')
+    set('apacheCommonVersion', '3.12.0')
+    set('jwtVersion', '0.9.1')
+    set('jaxbVersion', '2.3.0')
+    set('activationVersion', '1.1.1')
 }
 
 repositories {
@@ -17,22 +21,23 @@ repositories {
 
 // 子项目的通用配置
 subprojects {
-    // 使用插件
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
-    // 项目的默认名称和版本
     group = "com.flz.cloud.gw"
     version = '0.0.1-SNAPSHOT'
 
-    // 指定JDK版本
     sourceCompatibility = '11'
     jar.enabled = true
 
-    // 指定仓库地址
     repositories {
         mavenCentral()
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 
     dependencyManagement {
@@ -45,8 +50,13 @@ subprojects {
 
         // 自定义配置第三方依赖
         dependencies {
+            dependency "org.apache.commons:commons-lang3:${apacheCommonVersion}"
             dependency "mysql:mysql-connector-java:${mysqlVersion}"
-            dependency "org.projectlombok:lombok:${lombokVersion}"
+            dependency "javax.xml.bind:jaxb-api:${jaxbVersion}"
+            dependency "com.sun.xml.bind:jaxb-impl:${jaxbVersion}"
+            dependency "com.sun.xml.bind:jaxb-core:${jaxbVersion}"
+            dependency "javax.activation:activation:${activationVersion}"
+            dependency "io.jsonwebtoken:jjwt:${jwtVersion}"
         }
     }
 }
