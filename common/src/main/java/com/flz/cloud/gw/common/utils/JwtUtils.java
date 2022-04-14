@@ -3,6 +3,7 @@ package com.flz.cloud.gw.common.utils;
 import com.flz.cloud.gw.common.constants.Constant;
 import com.flz.cloud.gw.common.dto.JwtUser;
 import io.jsonwebtoken.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
@@ -28,6 +29,19 @@ public class JwtUtils {
                 .name(name)
                 .token(Constant.TOKEN_PREFIX + token)
                 .build();
+    }
+
+    public static boolean validate(String token) {
+        if (StringUtils.isEmpty(token) || !token.startsWith(Constant.TOKEN_PREFIX)) {
+            return false;
+        }
+
+        try {
+            getClaims(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static <T> T getByKey(String token, String key, Class<T> type) {
