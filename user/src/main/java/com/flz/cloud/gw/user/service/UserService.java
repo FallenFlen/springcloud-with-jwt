@@ -31,10 +31,8 @@ public class UserService {
         return JwtUtils.createJwtUser(savedUser.getId(), savedUser.getName());
     }
 
-    public UserInfoDto getCurrUserInfo(String token) {
-        Long id = JwtUtils.getByKey(token, "id", Long.class);
-        String name = JwtUtils.getByKey(token, "name", String.class);
-        return new UserInfoDto(id, name);
+    public UserInfoDto getCurrUserInfo(JwtUser jwtUser) {
+        return UserInfoDto.of(jwtUser);
     }
 
     public JwtUser login(UserLoginRequestDto userLoginRequestDto) {

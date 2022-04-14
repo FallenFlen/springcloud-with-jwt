@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    public UserInfoDto info(String token) {
-        return userService.getCurrUserInfo(token);
+    public UserInfoDto info(@RequestAttribute("jwtUser") JwtUser jwtUser) {
+        return userService.getCurrUserInfo(jwtUser);
     }
 
     @PostMapping("/login")
