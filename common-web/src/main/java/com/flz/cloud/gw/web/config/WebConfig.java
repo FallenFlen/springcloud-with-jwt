@@ -1,6 +1,6 @@
 package com.flz.cloud.gw.web.config;
 
-import com.flz.cloud.gw.web.interceptor.RequestInterceptor;
+import com.flz.cloud.gw.web.interceptor.CommonRequestInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,7 +11,7 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
-    private final RequestInterceptor requestInterceptor;
+    private final CommonRequestInterceptor commonRequestInterceptor;
     private final List<String> paths = List.of(
             "/user/**",
             "/s1/**"
@@ -23,6 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestInterceptor).addPathPatterns(paths).excludePathPatterns(excludePaths);
+        registry.addInterceptor(commonRequestInterceptor).addPathPatterns(paths).excludePathPatterns(excludePaths);
     }
 }
