@@ -1,9 +1,8 @@
 package com.flz.cloud.gw.filter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flz.cloud.gw.common.constants.Constant;
 import com.flz.cloud.gw.common.dto.ErrorResult;
+import com.flz.cloud.gw.common.utils.JsonUtils;
 import com.flz.cloud.gw.common.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -17,12 +16,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 @Component
 public class LoginFilter implements GlobalFilter, Ordered {
     private static final String LOGIN_URI = "/user/login";
     private static final String REGISTER_URI = "/user";
-    private static final ObjectMapper OM = new ObjectMapper();
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -41,17 +41,11 @@ public class LoginFilter implements GlobalFilter, Ordered {
             return deny(response, new ErrorResult("token无效"));
         }
 
-        request.mutate().header(Constant.TOKEN_KEY, token);
         return chain.filter(exchange);
     }
 
     private Mono<Void> deny(ServerHttpResponse response, ErrorResult errorResult) {
-        byte[] errorBytes = new byte[0];
-        try {
-            errorBytes = OM.writeValueAsBytes(errorResult);
-        } catch (JsonProcessingException e) {
-            log.error("json解析错误:", e);
-        }
+        byte[] errorBytes = JsonUtils.toJson(errorResult).getBytes(StandardCharsets.UTF_8);
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         DataBuffer dataBuffer = response.bufferFactory().wrap(errorBytes);
