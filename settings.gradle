@@ -4,3 +4,6 @@ include 'service1'
 include 'user'
 include 'common'
 include 'common-web'
+include 'service2-with-feign'
+include 'client'
+

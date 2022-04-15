@@ -1,0 +1,16 @@
+archivesBaseName = 'client'
+
+bootJar.enabled = false
+
+group 'com.flz.cloud.gw'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}

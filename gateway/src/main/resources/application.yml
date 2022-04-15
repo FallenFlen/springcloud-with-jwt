@@ -10,3 +10,7 @@ spring:
           uri: http://localhost:8090
           predicates:
             - Path=/s1/**
+        - id: service1_route
+          uri: http://localhost:8091
+          predicates:
+            - Path=/s2/**

@@ -1,0 +1,22 @@
+archivesBaseName = 'service2'
+
+bootJar {
+    enabled = true
+    archiveClassifier = 'boot'
+}
+
+group 'com.flz.cloud.gw'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':common-web')
+    implementation project(':client')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+}

@@ -14,7 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
     private final CommonRequestInterceptor commonRequestInterceptor;
     private final List<String> paths = List.of(
             "/user/**",
-            "/s1/**"
+            "/s1/**",
+            "/s2/**"
     );
     private final List<String> excludePaths = List.of(
             "/user",
