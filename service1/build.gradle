@@ -1,4 +1,4 @@
-archivesBaseName = 'gateway'
+archivesBaseName = 'service1'
 
 bootJar {
     enabled = true
